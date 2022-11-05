@@ -9,3 +9,15 @@ before_install:
 
 script:
   - docker run TESTME npm run test -- --coverage
+
+deploy:
+  proovider: elasticbeanstalk
+  region: "us-east-1"  ##From AWS
+  app: "docker"
+  env: "Docker-env" 
+  bucket_name: "elasticbeanstalk-us-east-1-716621372767"  ## Get it from S3 in AWS
+  bucket_path: "docker"   ##Exact name as bucket app
+  on:
+    branch: master  #Any time we push to master , this is when we deploy
+  access_key_id: $AWS_ACCESS_KEY   #Get access key saved in travis
+  secret_access_key: "$AWS_SECRET_KEY"  #Get secret key saved in travcis
